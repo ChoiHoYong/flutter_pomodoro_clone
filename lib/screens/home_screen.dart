@@ -48,6 +48,15 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void onRestrtPressed() {
+    timer.cancel();
+    setState(() {
+      totalSeconds = twentyFiveMinutes;
+      totalPomodoros = 0;
+      isRunning = false;
+    });
+  }
+
   String format(int seconds) {
     var duration = Duration(seconds: seconds);
 
@@ -76,17 +85,31 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Flexible(
             flex: 3,
-            child: Center(
-              child: IconButton(
-                iconSize: 150,
-                color: Theme.of(context).cardColor,
-                onPressed: isRunning ? onPausePressed : onStartPressed,
-                icon: Icon(
-                  isRunning
-                      ? Icons.pause_circle_outline
-                      : Icons.play_circle_outline,
+            child: Column(
+              children: [
+                Center(
+                  child: IconButton(
+                    iconSize: 150,
+                    color: Theme.of(context).cardColor,
+                    onPressed: isRunning ? onPausePressed : onStartPressed,
+                    icon: Icon(
+                      isRunning
+                          ? Icons.pause_circle_outline
+                          : Icons.play_circle_outline,
+                    ),
+                  ),
                 ),
-              ),
+                Center(
+                  child: IconButton(
+                    iconSize: 150,
+                    color: Theme.of(context).cardColor,
+                    onPressed: onRestrtPressed,
+                    icon: const Icon(
+                      Icons.restart_alt_outlined,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Flexible(
